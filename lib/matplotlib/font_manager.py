@@ -568,7 +568,7 @@ def createFontList(fontfiles, fontext='ttf'):
                     font = afm.AFM(fh)
                 finally:
                     fh.close()
-            except RuntimeError:
+            except (RuntimeError, IOError):
                 verbose.report("Could not parse font file %s"%fpath)
                 continue
             try:
@@ -578,7 +578,7 @@ def createFontList(fontfiles, fontext='ttf'):
         else:
             try:
                 font = ft2font.FT2Font(fpath)
-            except RuntimeError:
+            except (RuntimeError, IOError):
                 verbose.report("Could not open font file %s"%fpath)
                 continue
             except UnicodeError:
